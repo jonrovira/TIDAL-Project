@@ -1,0 +1,40 @@
+body {
+	margin: 0;
+}
+
+#steps {
+	float: left;
+	width: 300px;
+	height: 741px;
+	background-color: #222;
+}
+#steps > div {
+	width: 220px;
+	height: 220px;
+	margin: 20px auto;
+	border: 1px solid #ffffff;
+	border-radius: 50%;
+	text-align: center;
+}
+#steps > div > h2 {
+	margin-right: auto;
+	margin-left: auto;
+	line-height: 180px;
+	color: #ffffff;
+}
+
+
+
+
+#options, #rhythms, #metronome {
+	display: inline-block;
+	width: calc(100% - 302px);
+	height: 245px;
+	border: 1px solid #111;
+	background-color: #333;
+	text-align: center;
+	color: #ffffff;
+}
+#options > h1, #rhythms > h1, #metronome > h1 {
+	line-height: 230px;
+}
