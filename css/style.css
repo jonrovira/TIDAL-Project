@@ -74,8 +74,5 @@ body {
 }
 #right > section > h1 {
 	margin: 0;
-}
-
-#options > h1, #rhythms > h1, #metronome > h1 {
 	line-height: 230px;
 }
