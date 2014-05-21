@@ -20,14 +20,6 @@ body {
 	background-color: #111;
 	color: #eee;
 }
-#navbar h3 {
-	float: right;
-	margin-top: 0;
-	margin-right: 50px;
-	margin-bottom: 0;
-	line-height: 39px;
-	font-size: 17px;
-}
 
 
 /*
@@ -39,7 +31,19 @@ body {
 	border-right: 1px solid #111;
 	background-color: #222;
 }
-#steps > div {
+#steps i.help {
+	float: left;
+	padding: 10px 0 0 10px;
+	font-size: 20px;
+	color: #eee;
+	opacity: 0.6;
+	cursor: pointer;
+}
+#steps #step-list {
+	padding: 0;
+	list-style: none;
+}
+#steps #step-list > li {
 	width: 200px;
 	height: 200px;
 	margin: 20px auto;
@@ -48,10 +52,10 @@ body {
 	text-align: center;
 	cursor: pointer;
 }
-#steps > div.step-active {
+#steps #step-list > li.active {
 	background-color: #03233D;
 }
-#steps > div > h2 {
+#steps #step-list > li > h2 {
 	margin-right: auto;
 	margin-left: auto;
 	line-height: 165px;
@@ -66,7 +70,6 @@ body {
 	float: right;
 	width: calc(100% - 281px);
 	background-color: #222;
-	text-align: center;
 	color: #eee;
 }
 #right > section:nth-child(-n+2) {
@@ -74,5 +77,19 @@ body {
 }
 #right > section > h1 {
 	margin: 0;
-	line-height: 230px;
+	padding: 20px 0 0 20px;
+}
+#right > section > div.content {
+	padding: 20px 0 0 20px;
+}
+
+
+/*
+ * Options
+ */
+#options div.content i {
+	font-size: 90px;
+}
+#options div.content #pause {
+	display: none;
 }

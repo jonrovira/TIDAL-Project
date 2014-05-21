@@ -20,12 +20,28 @@ $(document).ready(function() {
 	/*
 	 * Step clicking
 	 */
-	$('#steps > div').click(function() {
-		if(!$(this).hasClass('step-active')) {
-			$('.step-active').removeClass('step-active');
-			$(this).addClass('step-active');
+	$('#steps #step-list > li').click(function() {
+		if(!$(this).hasClass('active')) {
+			$('.active').removeClass('active');
+			$(this).addClass('active');
 		}
 	});
 
+
+	/*
+	 * Play/pause icon display/functionality
+	 */
+	var audio = new Audio('public/audio/2Chainz.mp3');
+	$('#options div.content > i').click(function() {
+		$(this).hide();
+		if($(this).attr('id') == 'play') {
+			audio.play();
+			$('#options div.content #pause').show();	
+		}
+		else {
+			audio.pause();
+			$('#options div.content #play').show();
+		}
+	});
 
 });
