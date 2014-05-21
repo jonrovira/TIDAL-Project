@@ -3,18 +3,27 @@ $(document).ready(function() {
 	/*
 	 * Section heights
 	 */
-	var navHeight = $('#navbar').height();
-	var windowHeight = $(window).height();
-	var displayHeight = windowHeight - navHeight;
-	while(displayHeight % 3 != 0) {
-		displayHeight -= 1;
+	function setHeights() {
+		var navHeight = $('#navbar').height();
+		var windowHeight = $(window).height();
+		var displayHeight = windowHeight - navHeight;
+		while(displayHeight % 3 != 0) {
+			displayHeight -= 1;
+		}
+		var stepsHeight = displayHeight;
+		var rightSectionsHeight = (displayHeight / 3) - 1; // -1 for bottom border
+		$('#steps').height(stepsHeight);
+		$('#options').height(rightSectionsHeight);
+		$('#rhythms').height(rightSectionsHeight);
+		$('#metronome').height(rightSectionsHeight);
+		// Step heights
+		var stepWidth = $('#steps #step-list li').width();
+		$('#steps #step-list li').height(stepWidth);
+		$('#steps #step-list li h2').css('line-height', (stepWidth*(8/10))+'px');
+
 	}
-	var stepsHeight = displayHeight;
-	var rightSectionsHeight = (displayHeight / 3) - 1; // -1 for bottom border
-	$('#steps').height(stepsHeight);
-	$('#options').height(rightSectionsHeight);
-	$('#rhythms').height(rightSectionsHeight);
-	$('#metronome').height(rightSectionsHeight);
+	setHeights(); // On load
+	$(window).resize(setHeights); // On resize
 
 
 	/*
