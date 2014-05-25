@@ -30,7 +30,15 @@ body {
 	width: calc(100% / 6);
 	border-right: 1px solid #111;
 	background-color: #222;
-	overflow-y: scroll;
+	overflow-y: auto;
+}
+#steps::-webkit-scrollbar {
+	width: 10px;
+	background-color: #383838;
+}
+#steps::-webkit-scrollbar-thumb{
+background-color: #1C1C1C;
+border-radius: 10px;
 }
 #steps i.help {
 	float: left;
@@ -79,16 +87,58 @@ body {
 	padding: 20px 0 0 20px;
 }
 #right > section > div.content {
-	padding: 20px 0 0 20px;
+	padding: 20px;
 }
 
 
 /*
  * Options
  */
-#options div.content i {
-	font-size: 90px;
+#options div.content #beat-options, #options div.content #controls {
+	float: left;
 }
-#options div.content #pause {
-	display: none;
+#options div.content #beat-options div.opts {
+	display: inline-block;
+	margin-right: 40px;
+}
+#options div.content #beat-options div.opts ul {
+	margin: 0;
+	padding: 0;
+}
+#options div.content #beat-options div.opts li {
+	float: left;
+	display: inline-block;
+	list-style-type: none;
+}
+#options div.content #beat-options div.opts li button {
+	margin: 0;
+	padding: 7px 14px;
+	border: 1px solid #666;
+	border-radius: 4px;
+	outline: none;
+	background-color: #1c1c1c;
+	color: #eee;
+	font-size: 14px;
+	cursor: pointer;
+}
+#options div.content #beat-options div.opts li button:hover {
+	background-color: #444;
+}
+#options div.content #beat-options div.opts li button.active {
+	background-color: #03233D;
+}
+#options div.content #beat-options div.opts li:first-child button {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+#options div.content #beat-options div.opts li:not(:first-child):not(:last-child) button {
+	border-radius: 0;
+}
+#options div.content #beat-options div.opts li:last-child button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+#options div.content #controls i {
+	margin-right: 40px;
+	font-size: 90px;
 }

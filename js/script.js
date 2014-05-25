@@ -11,9 +11,9 @@ $(document).ready(function() {
 			displayHeight -= 1;
 		}
 		var stepsHeight = displayHeight;
-		var rightSectionsHeight = (displayHeight / 3) - 1; // -1 for bottom border
+		var rightSectionsHeight = ((displayHeight-151) / 2) - 1; // -1 for bottom border
 		$('#steps').height(stepsHeight);
-		$('#options').height(rightSectionsHeight);
+		$('#options').height(150);
 		$('#rhythms').height(rightSectionsHeight);
 		$('#metronome').height(rightSectionsHeight);
 		// Step heights
@@ -29,6 +29,7 @@ $(document).ready(function() {
 	/*
 	 * Step clicking
 	 */
+	$('#steps #step-list > li:nth-child(1)').addClass('active');
 	$('#steps #step-list > li').click(function() {
 		if(!$(this).hasClass('active')) {
 			$('.active').removeClass('active');
@@ -38,18 +39,39 @@ $(document).ready(function() {
 
 
 	/*
-	 * Play/pause icon display/functionality
-	 */
-	var audio = new Audio('public/audio/2Chainz.mp3');
-	$('#options div.content > i').click(function() {
-		$(this).hide();
-		if($(this).attr('id') == 'play') {
-			audio.play();
-			$('#options div.content #pause').show();	
+	 * Beat option clicking
+	 
+	$('#options div.content #beat-options div.opts:first-child li:nth-child(4) button').addClass('active');
+	$('#options div.content #beat-options div.opts:last-child li:nth-child(3) button').addClass('active');
+	$('#options div.content #beat-options div.opts li button').click(function() {
+		if(!$(this).hasClass('active')) {
+			$parent = $(this).parent().parent();
+			$
 		}
-		else {
+	})*/
+
+
+	/*
+	 * Backstep/play/pause icon display/functionality
+	 */
+	$('#pause').hide();
+	var audio = new Audio('public/audio/2Chainz.mp3');
+	$('#options div.content #controls > i').click(function() {
+		if($(this).attr('id') == "stepback") {
+			audio.currentTime = 0;
 			audio.pause();
-			$('#options div.content #play').show();
+			$('#pause').hide();
+			$('#play').show();
+		}
+		else if($(this).attr('id') == 'play') {
+			audio.play();
+			$('#play').hide();
+			$('#pause').show();	
+		}
+		else if($(this).attr('id') == 'pause') {
+			audio.pause();
+			$(this).hide();
+			$('#play').show();
 		}
 	});
 
