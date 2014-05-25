@@ -43,12 +43,25 @@ $(document).ready(function() {
 	 */
 	$('#options div.content #beat-options div.opts:first-child li:nth-child(4) button').addClass('active');
 	$('#options div.content #beat-options div.opts:last-child li:nth-child(3) button').addClass('active');
+	setOptionsFeedback();
 	$('#options div.content #beat-options div.opts li button').click(function() {
 		if(!$(this).hasClass('active')) {
 			$(this).parent().parent().find('.active').removeClass('active');
 			$(this).addClass('active');
 		}
+		setOptionsFeedback();
 	})
+
+
+	/*
+	 * Beat options feedback
+	 */
+	function setOptionsFeedback() {
+		$('#options div.content #opts-feedback h2:first-child').html(
+			$('#options div.content #beat-options div.opts:last-child li button.active').html());
+		$('#options div.content #opts-feedback h2:last-child').html(
+			$('#options div.content #beat-options div.opts:first-child li button.active').html());
+	}
 
 
 	/*
@@ -60,18 +73,19 @@ $(document).ready(function() {
 		if($(this).attr('id') == "stepback") {
 			audio.currentTime = 0;
 			audio.pause();
+			$('#stepback').fadeOut(100).fadeIn(100);
 			$('#pause').hide();
 			$('#play').show();
 		}
 		else if($(this).attr('id') == 'play') {
 			audio.play();
-			$('#play').hide();
-			$('#pause').show();	
+			$('#play').fadeOut(100);
+			$('#pause').delay(100).fadeIn(100);	
 		}
 		else if($(this).attr('id') == 'pause') {
 			audio.pause();
-			$(this).hide();
-			$('#play').show();
+			$('#pause').fadeOut(100);
+			$('#play').delay(100).fadeIn(100);
 		}
 	});
 

@@ -94,7 +94,7 @@ border-radius: 10px;
 /*
  * Options
  */
-#options div.content #beat-options, #options div.content #controls {
+#options div.content #beat-options, #options div.content #opts-feedback, #options div.content #controls {
 	float: left;
 }
 #options div.content #beat-options div.opts {
@@ -138,7 +138,26 @@ border-radius: 10px;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
+#options div.content #opts-feedback {
+	margin: 0 40px;
+	text-align: center;
+}
+#options div.content #opts-feedback h2:first-child {
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+#options div.content #opts-feedback h2:nth-child(2) {
+	margin: 5px 0;
+}
+#options div.content #opts-feedback h2:last-child {
+	margin-top: 0;
+}
+#options div.content #controls {
+	margin-top: 12px;
+	margin-left: 40px;
+}
 #options div.content #controls i {
 	margin-right: 40px;
 	font-size: 90px;
+	cursor: pointer;
 }
