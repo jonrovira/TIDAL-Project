@@ -40,15 +40,15 @@ $(document).ready(function() {
 
 	/*
 	 * Beat option clicking
-	 
+	 */
 	$('#options div.content #beat-options div.opts:first-child li:nth-child(4) button').addClass('active');
 	$('#options div.content #beat-options div.opts:last-child li:nth-child(3) button').addClass('active');
 	$('#options div.content #beat-options div.opts li button').click(function() {
 		if(!$(this).hasClass('active')) {
-			$parent = $(this).parent().parent();
-			$
+			$(this).parent().parent().find('.active').removeClass('active');
+			$(this).addClass('active');
 		}
-	})*/
+	})
 
 
 	/*
