@@ -8,11 +8,6 @@ body, html {
 body {
 	margin: 0;
 }
-.note {
-	position: absolute;
-	display: none;
-	right: 7px;
-}
 .note .note-x .note-x-l{
 	width: 3px;
 	height: 23px;
@@ -168,7 +163,7 @@ border-radius: 10px;
 	border-bottom-left-radius: 0;
 }
 #options div.content #opts-feedback {
-	margin: 0 40px;
+	margin: 0 40px 0 30px;
 	text-align: center;
 }
 #options div.content #opts-feedback h2:first-child {
@@ -183,7 +178,7 @@ border-radius: 10px;
 }
 #options div.content #controls {
 	margin-top: 12px;
-	margin-left: 40px;
+	margin-left: 420px;
 }
 #options div.content #controls i {
 	margin-right: 40px;
@@ -196,8 +191,15 @@ border-radius: 10px;
  * Rhythms
  */
 #rhythms div.content #note-stream {
-	margin-top: 75px;
+	margin-top: 30px;
 	margin-left: 40px;
+	height: 140px;
+	border-left: 2px solid #111;
 }
-
+#rhythms div.content #note-stream .note {
+	position: absolute;
+	display: none;
+	right: 7px;
+	margin-top: 40px;
+}
 
