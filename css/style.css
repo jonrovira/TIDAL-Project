@@ -142,15 +142,20 @@ border-radius: 10px;
 	margin-right: 40px;
 	font-size: 90px;
 }
+
+
+
 .scene{
 	width:auto;
 	height: auto; 
 	position: absolute;
+	margin-left: 10px;
+
+}
+.scene:after{
+	position: absolute;
+
 }
 
 
 
-#animal{
-	position: relative;
-
-}
