@@ -142,3 +142,16 @@ border-radius: 10px;
 	margin-right: 40px;
 	font-size: 90px;
 }
+.scene{
+	width:auto;
+	height: auto; 
+	position: absolute;
+}
+
+
+}
+
+#animal{
+	position: relative;
+
+}
