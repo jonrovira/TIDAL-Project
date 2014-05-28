@@ -86,12 +86,6 @@ $(document).ready(function() {
 
 
 	/*
-	 * Note adding into document
-	 */
-	$('#note-stream div.note').html('<div class="note-stem"></div><div class="note-x"><div class="note-x-l"><div class="note-x-r"></div></div></div>');
-
-
-	/*
 	 * Note stream animation
 	 */
 	$('#play').click(function() {
@@ -112,5 +106,21 @@ $(document).ready(function() {
 			}
 		}, 1000);
 	});
+
+
+
+    $('section[data-type="background"]').each(function(){
+        var $bgobj = $(this); // assigning the object
+     
+        $(window).scroll(function() {
+            var yPos = -($window.scrollTop() / $bgobj.data('speed')); 
+             
+            // Put together our final background position
+            var coords = '50% '+ yPos + 'px';
+ 
+            // Move the background
+            $bgobj.css({ backgroundPosition: coords });
+        }); 
+    });    
 
 });

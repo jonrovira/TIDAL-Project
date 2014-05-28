@@ -188,6 +188,7 @@ border-radius: 10px;
 #options div.content #controls i {
 	margin-right: 40px;
 	font-size: 90px;
+<<<<<<< HEAD
 	cursor: pointer;
 }
 
@@ -198,6 +199,19 @@ border-radius: 10px;
 #rhythms div.content #note-stream {
 	margin-top: 75px;
 	margin-left: 40px;
+}
+
+
+
+.scene{
+	width:auto;
+	height: auto; 
+	position: absolute;
+	margin-left: 10px;
+}
+.scene:after{
+	position: absolute;
+
 }
 
 

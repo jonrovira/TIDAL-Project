@@ -7,8 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="packages/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-		<script src="packages/transit/jquery.transit.min.js"></script>
 		<script src="js/script.js"></script>
 	</head>
 
@@ -43,18 +41,13 @@
 							</div>
 							<div class="opts">
 								<h4>Secondary beat</h4>
-								<ul>
+								<ul id="opt-primary">
 									<li><button type="button">1</button></li>
 									<li><button type="button">2</button></li>
 									<li><button type="button">3</button></li>
 									<li><button type="button">4</button></li>
 								</ul>
 							</div>
-						</div>
-						<div id="opts-feedback">
-							<h2></h2>
-							<h2>over</h2>
-							<h2></h2>
 						</div>
 						<div id="controls">
 							<i id="stepback"class="fa fa-step-backward"></i>
@@ -66,30 +59,20 @@
 
 
 				<section id="rhythms">
-					<div class="content">
-						<div id="note-stream">
-							<div class="note"></div>
-							<div class="note"></div>
-							<div class="note"></div>
-							<div class="note"></div>
-							<div class="note"></div>
-							<div class="note"></div>
-						</div>
-					</div>
+					<h1>Rhythms</h1>
 				</section>
 
 
 				<section id="metronome">
 					<h1>Metronome</h1>
-						<div class="animal">
-							<marquee behavior="scroll" direction="right"  scrollamount="50">
-							<img src="images/giraffe.gif" alt="giraffe">
-							</marquee>
-						</div>
 						<div class="scene">
 							<img src="images/tree.png">
 						</div>
-
+						<div id="animal">
+							<marquee behavior="scroll" direction="right" scrollamount="">
+							<img src="images/giraffe.gif" alt="giraffe">
+							</marquee>
+						</div>
 				</section>
 			</div>
 		</div>
