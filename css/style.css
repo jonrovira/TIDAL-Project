@@ -3,7 +3,7 @@
  */
 body, html {
 	font-family: Helvetica;
-	background-color: #222;
+	background-color: #4582347;
 }
 body {
 	margin: 0;
@@ -41,8 +41,43 @@ body {
 	width: 100%;
 	height: 40px;
 	vertical-align: center;
-	background-color: #111;
+	border-bottom: 1px solid #444;
+	background-color: #191919;
 	color: #eee;
+}
+
+
+/*
+ * Left section
+ */
+#left {
+	float: left;
+	width: calc(100% * (1/7));
+	border-right: 1px solid #1d1d1d;
+}
+#left > section > div.content {
+	padding: 10px;
+}
+
+
+/*
+ * Right section
+ */
+#right {
+	float: right;
+	width: calc((100% * (6/7)) - 1px);
+	background-color: #1e1e1e;
+	color: #eee;
+}
+#right > section:nth-child(-n+1) {
+	border-bottom: 1px solid #333;
+}
+#right > section > h1 {
+	margin: 0;
+	padding: 20px 0 0 20px;
+}
+#right > section > div.content {
+	padding: 20px;
 }
 
 
@@ -50,9 +85,6 @@ body {
  * Steps
  */
 #steps {
-	float: left;
-	width: calc(100% / 6);
-	border-right: 1px solid #111;
 	background-color: #222;
 	overflow-y: auto;
 }
@@ -61,23 +93,15 @@ body {
 	background-color: #383838;
 }
 #steps::-webkit-scrollbar-thumb{
-background-color: #1C1C1C;
-border-radius: 10px;
-}
-#steps i.help {
-	float: left;
-	padding: 10px 0 0 10px;
-	font-size: 20px;
-	color: #eee;
-	opacity: 0.6;
-	cursor: pointer;
+	background-color: #1C1C1C;
+	border-radius: 0;
 }
 #steps #step-list {
 	padding: 0;
 	list-style: none;
 }
 #steps #step-list > li {
-	width: calc(100% * (5/6));
+	width: calc(100% * (4/6));
 	margin: 20px auto;
 	border: 1px solid #eee;
 	border-radius: 50%;
@@ -95,95 +119,91 @@ border-radius: 10px;
 
 
 /*
- * Right section
+ * Controls
  */
-#right {
-	float: right;
-	width: calc((100% * (5/6)) - 1px);
+#controls {
 	background-color: #222;
+}
+#controls h4 {
+	margin: 40px 0 5px 0;
 	color: #eee;
+	font-size: 14px;
 }
-#right > section:nth-child(-n+2) {
-	border-bottom: 1px solid #111;
+#controls #beat-options div.opts:first-child {
+	margin-bottom: 5px;
 }
-#right > section > h1 {
-	margin: 0;
-	padding: 20px 0 0 20px;
+#controls #beat-options div.opts:first-child h4 {
+	margin-top: 5px;
 }
-#right > section > div.content {
-	padding: 20px;
-}
-
-
-/*
- * Options
- */
-#options div.content #beat-options, #options div.content #opts-feedback, #options div.content #controls {
-	float: left;
-}
-#options div.content #beat-options div.opts {
-	display: inline-block;
-	margin-right: 40px;
-}
-#options div.content #beat-options div.opts ul {
+#controls #beat-options div.opts ul {
 	margin: 0;
 	padding: 0;
 }
-#options div.content #beat-options div.opts li {
+#controls #beat-options div.opts li {
 	float: left;
-	display: inline-block;
 	list-style-type: none;
 }
-#options div.content #beat-options div.opts li button {
+#controls #beat-options div.opts li button {
 	margin: 0;
-	padding: 7px 14px;
+	padding: 5px 10px;
+	border: 1px solid #666;
+	border-radius: 4px;
+	outline: none;
+	background-color: #1d1d1d;
+	color: #eee;
+	font-size: 12px;
+	cursor: pointer;
+}
+#controls #beat-options div.opts li button:hover {
+	background-color: #444;
+}
+#controls #beat-options div.opts li button.active {
+	background-color: #03233D;
+}
+#controls #beat-options div.opts li:first-child button {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+#controls #beat-options div.opts li:not(:first-child):not(:last-child) button {
+	border-radius: 0;
+}
+#controls #beat-options div.opts li:last-child button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+#controls #opts-feedback {
+	display: none;
+}
+#controls #opts-feedback h2:first-child {
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+#controls #opts-feedback h2:nth-child(2) {
+	margin: 5px 0;
+}
+#controls #opts-feedback h2:last-child {
+	margin-top: 0;
+}
+#controls #tempo-opt input {
+	width: 80px;
+	padding: 5px 10px;
 	border: 1px solid #666;
 	border-radius: 4px;
 	outline: none;
 	background-color: #1c1c1c;
+	font-size: 12px;
 	color: #eee;
-	font-size: 14px;
-	cursor: pointer;
 }
-#options div.content #beat-options div.opts li button:hover {
-	background-color: #444;
-}
-#options div.content #beat-options div.opts li button.active {
-	background-color: #03233D;
-}
-#options div.content #beat-options div.opts li:first-child button {
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-}
-#options div.content #beat-options div.opts li:not(:first-child):not(:last-child) button {
-	border-radius: 0;
-}
-#options div.content #beat-options div.opts li:last-child button {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-}
-#options div.content #opts-feedback {
-	margin: 0 40px 0 30px;
-	text-align: center;
-}
-#options div.content #opts-feedback h2:first-child {
+#controls #go {
 	margin-top: 10px;
-	margin-bottom: 0;
 }
-#options div.content #opts-feedback h2:nth-child(2) {
-	margin: 5px 0;
-}
-#options div.content #opts-feedback h2:last-child {
-	margin-top: 0;
-}
-#options div.content #controls {
-	margin-top: 12px;
-	margin-left: 420px;
-}
-#options div.content #controls i {
-	margin-right: 40px;
-	font-size: 90px;
+#controls #go i {
+	font-size: 50px;
+	color: #eee;
 	cursor: pointer;
+}
+#controls #go #stepback {
+	margin-right: 12px;
 }
 
 
@@ -192,9 +212,9 @@ border-radius: 10px;
  */
 #rhythms div.content #note-stream {
 	margin-top: 30px;
-	margin-left: 40px;
+	margin-left: 20px;
 	height: 140px;
-	border-left: 2px solid #111;
+	border-left: 2px solid #191919;
 }
 #rhythms div.content #note-stream .note {
 	position: absolute;
@@ -207,18 +227,21 @@ border-radius: 10px;
 /*
  * Metronome
  */
-#metronome div.content #giraffe {
-	position: absolute;
-	margin-top: 90px;
-	margin-left: 20px;
-	z-index: 1000;
-}
-#metronome div.content #trees {
-	height: auto; 
-	position: absolute;
+#metronome div.content #scene {
 	margin-left: 20px;
 }
-#metronome div.content #trees img {
-	max-width: 90%;
+#metronome div.content #scene #giraffe {
+	position: absolute;
+	margin-top: 30px;
+}
+#metronome div.content #scene #tree {
+	position: absolute;
+	right: 20px;
+	opacity: 0.8;
+}
+#metronome div.content #scene #landscape {
+	position: absolute;
+	opacity: 0.2;
+	max-width: 100%;
 }
 

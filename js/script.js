@@ -1,29 +1,43 @@
 $(document).ready(function() {
 
+
+
 	/*
-	 * Section heights
+	 * Setting sizes/resizing
 	 */
 	function setHeights() {
-		var navHeight = $('#navbar').height();
 		var windowHeight = $(window).height();
-		var displayHeight = windowHeight - navHeight;
-		while(displayHeight % 3 != 0) {
-			displayHeight -= 1;
-		}
-		var stepsHeight = displayHeight;
-		var rightSectionsHeight = ((displayHeight-151) / 2) - 1; // -1 for bottom border
-		$('#steps').height(stepsHeight);
-		$('#options').height(150);
-		$('#rhythms').height(rightSectionsHeight);
-		$('#metronome').height(rightSectionsHeight);
-		// Step heights
+		var navHeight = $('#navbar').height()+1;//bottom border
+		var displayHeight = windowHeight-navHeight;
+		var leftHeight = displayHeight;
+		var rightHeight = displayHeight;
+		//Left, right heights
+		$('#left').height(displayHeight);
+		$('#right').height(displayHeight);
+		//Step circle heights, line height
 		var stepWidth = $('#steps #step-list li').width();
 		$('#steps #step-list li').height(stepWidth);
-		$('#steps #step-list li h2').css('line-height', (stepWidth*(8/10))+'px');
+		$('#steps #step-list li h2').css('line-height', (stepWidth*(8/11))+'px');
+		//Controls height
+		var controlsHeight = 250;
+		$('#controls').height(controlsHeight);
+		$('#steps').height(displayHeight-controlsHeight);
+		//Right section heights
+		var rhythmPercent = 0.66;
+		var metronomePercent = 1-rhythmPercent;
+		var rhythmHeight = (displayHeight*rhythmPercent);
+		var metronomeHeight = displayHeight-rhythmHeight-1;//bottom border
+		$('#rhythms').height(rhythmHeight);
+		$('#metronome').height(metronomeHeight);
+		//Metronome (widths)
+		var sceneWidth = $('#metronome div.content #scene').width();
+		$('#metronome div.content #scene #tree').width(sceneWidth/10);
+		$('#metronome div.content #scene #landscape').width(sceneWidth);
 
 	}
 	setHeights(); // On load
 	$(window).resize(setHeights); // On resize
+
 
 
 	/*
@@ -52,25 +66,32 @@ $(document).ready(function() {
 	});
 
 
+
 	/*
 	 * Beat option clicking
 	 */
-	function setOptionsFeedback() {
-		$('#opts-feedback h2:first-child').html(
-			$('#beat-options div.opts:last-child li button.active').html());
-		$('#opts-feedback h2:last-child').html(
-			$('#beat-options div.opts:first-child li button.active').html());
+	var $pBeatOptActive = $('#beat-options div.opts:first-child li:nth-child(3) button');
+	var $sBeatOptActive = $('#beat-options div.opts:last-child li:nth-child(2) button');
+	var $pOptFeedback = $('#opts-feedback h2:last-child');
+	var $sOptFeedback = $('#opts-feedback h2:first-child');
+	$pBeatOptActive.addClass('active');
+	$sBeatOptActive.addClass('active');
+	function setBeatOptionsFeedback() {
+		var pBeatOpt = $('#beat-options div.opts:first-child li button.active').html();
+		var sBeatOpt = $('#beat-options div.opts:last-child li button.active').html();
+		$pOptFeedback.html(pBeatOpt);
+		$sOptFeedback.html(sBeatOpt);
 	}
-	$('#beat-options div.opts:first-child li:nth-child(3) button').addClass('active');
-	$('#beat-options div.opts:last-child li:nth-child(2) button').addClass('active');
-	setOptionsFeedback();
+	setBeatOptionsFeedback();
+	// On click
 	$('#beat-options div.opts li button').click(function() {
 		if(!$(this).hasClass('active')) {
 			$(this).parent().parent().find('.active').removeClass('active');
 			$(this).addClass('active');
 		}
-		setOptionsFeedback();
+		setBeatOptionsFeedback();
 	});
+
 
 
 	/*
@@ -78,7 +99,7 @@ $(document).ready(function() {
 	 */
 	$('#pause').hide();
 	var audio = new Audio('public/audio/2Chainz.mp3');
-	$('#options div.content #controls > i').click(function() {
+	$('#go i').click(function() {
 		if($(this).attr('id') == "stepback") {
 			audio.currentTime = 0;
 			audio.pause();
@@ -126,6 +147,7 @@ $(document).ready(function() {
 		console.log("sBeats: " + sBeats);
 		console.log("pTpn: " + pTpn);
 		console.log("sTpn: " + sTpn)
+		treeMove();
 
 		if(step==1) {
 			notes = $('#note-stream').children('.primary');
@@ -194,8 +216,15 @@ $(document).ready(function() {
 
 	/*
 	 * Metronome
-	 */
-	var treeWidth = $('#metronome div.content #trees').width();
-	$('#metronome div.content #giraffe').width(treeWidth-110);
+	 */	
+	function treeMove() {
+		$('#giraffe').attr('src', 'public/images/giraffe.gif');
+		$('#tree').transition({
+			x: -($(window).width()-$('#steps').width()-160)
+		}, 3000, "linear", function() {
+			$('#tree').transition({x:0}, 0);
+			treeMove();
+		});
+	}
 
 });
