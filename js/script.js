@@ -1,3 +1,5 @@
+var loadHeight = $(window).height(); //Ignore scrollbars
+
 $(document).ready(function() {
 
 
@@ -5,8 +7,7 @@ $(document).ready(function() {
 	/*
 	 * Setting sizes/resizing
 	 */
-	function setHeights() {
-		var windowHeight = $(window).height();
+	function setHeights(windowHeight) {
 		var navHeight = $('#navbar').height()+1;//bottom border
 		var displayHeight = windowHeight-navHeight;
 		var leftHeight = displayHeight;
@@ -24,8 +25,7 @@ $(document).ready(function() {
 		$('#steps').height(displayHeight-controlsHeight);
 		//Right section heights
 		var rhythmPercent = 0.66;
-		var metronomePercent = 1-rhythmPercent;
-		var rhythmHeight = (displayHeight*rhythmPercent);
+		var rhythmHeight = Math.floor(displayHeight*rhythmPercent);
 		var metronomeHeight = displayHeight-rhythmHeight-1;//bottom border
 		$('#rhythms').height(rhythmHeight);
 		$('#metronome').height(metronomeHeight);
@@ -35,8 +35,11 @@ $(document).ready(function() {
 		$('#metronome div.content #scene #landscape').width(sceneWidth);
 
 	}
-	setHeights(); // On load
-	$(window).resize(setHeights); // On resize
+	setHeights(loadHeight); // On load
+	$(window).resize(function() {
+		var resizeHeight = $(window).height();
+		setHeights(resizeHeight);
+	}); // On resize
 
 
 
@@ -172,9 +175,9 @@ $(document).ready(function() {
 			var noteStreamInterval = setInterval(function() {
 				$(notes[i]).show();
 				$(notes[i]).transition({
-					x: -($(window).width()-$('#steps').width()-80)
-				}, tpn, "linear", function() {
-					$(this).hide();
+					x: -($(window).width()-$('#steps').width()-60)
+				}, tpn+3000, "linear", function() {
+					//$(this).hide();
 				});
 				i++;
 				if(i == notes.length) {

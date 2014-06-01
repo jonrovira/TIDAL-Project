@@ -3,32 +3,31 @@
  */
 body, html {
 	font-family: Helvetica;
-	background-color: #4582347;
 }
 body {
 	margin: 0;
 }
 .note .note-x .note-x-l{
-	width: 3px;
-	height: 23px;
+	width: 7px;
+	height: 42px;
 	border-radius: 3px;
 	background-color: #66E587;
 	-webkit-transform: rotate(45deg);
 	z-index: 1;
 }
 .note .note-x .note-x-r {
-	width: 3px;
-	height: 23px;
+	width: 7px;
+	height: 42px;
 	border-radius: 3px;
 	background-color: #66E587;
 	-webkit-transform: rotate(90deg);
 	z-index: 2;
 }
 .note .note-stem {
-	margin-bottom: -4px;
-	margin-left: 8px;
-	height: 40px;
-	width: 3px;
+	margin-bottom: -10px;
+	margin-left: 13px;
+	height: 55px;
+	width: 7px;
 	border-radius: 3px;
 	background-color: #66E587;
 }
@@ -64,7 +63,7 @@ body {
  * Right section
  */
 #right {
-	float: right;
+	float: left;
 	width: calc((100% * (6/7)) - 1px);
 	background-color: #1e1e1e;
 	color: #eee;
@@ -213,13 +212,14 @@ body {
 #rhythms div.content #note-stream {
 	margin-top: 30px;
 	margin-left: 20px;
-	height: 140px;
+	height: 250px;
+	overflow: hidden;
 	border-left: 2px solid #191919;
 }
 #rhythms div.content #note-stream .note {
 	position: absolute;
 	display: none;
-	right: 7px;
+	right: 25px;
 	margin-top: 40px;
 }
 
