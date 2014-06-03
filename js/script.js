@@ -237,6 +237,7 @@ $(document).ready(function() {
 	function startMetronome() {
 		$('#giraffe').attr('src', 'public/images/giraffe.gif');
 		var rate = (dtP * pBeat) - 10;
+		stop = false;
 
 		$('#tree').transition({
 			x: -calculateLength()
