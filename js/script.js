@@ -19,6 +19,7 @@ $(document).ready(function() {
 	var shoot;
 	var shootP;
 	var shootS;
+	var stop = false;
 
 	$('#step-list li:nth-child('+steps[step]+')').addClass('active');
 	$('#pBeatOpt li:nth-child('+pBeat+') button').addClass('active');
@@ -64,6 +65,8 @@ $(document).ready(function() {
 		var sceneWidth = $('#metronome div.content #scene').width();
 		$('#metronome div.content #scene #tree').width(sceneWidth/10);
 		$('#metronome div.content #scene #landscape').width(sceneWidth);
+		var landscapeHeight = $('#landscape').height();
+		$('#scene').height(landscapeHeight);
 	}
 	/* Set hand feedback */
 	function setStep(hand) {
@@ -182,9 +185,14 @@ $(document).ready(function() {
 	/* Start shooting notes down stream */
 	function startShooting() {
 		var both = (step == "Both");
+		var metronomeDelay = t - (dtP * pBeat);
+		console.log(metronomeDelay);
 
 		//either right or left
 		if(!both) {
+			setTimeout(function() {
+				startMetronome();
+			}, metronomeDelay);
 			shootNote(type);
 			shoot = setInterval(function() {
 				shootNote(type);
@@ -197,6 +205,9 @@ $(document).ready(function() {
 			var rateS = dtX['secondary']
 
 			//shoot first notes together
+			setTimeout(function() {
+				startMetronome();
+			}, metronomeDelay);
 			shootFirstNotes();
 
 			//primary shooter
@@ -220,7 +231,20 @@ $(document).ready(function() {
 			clearInterval(shootP);
 			clearInterval(shootS);
 			$('.note').hide();
+			stop = true;
 		}
+	}
+	function startMetronome() {
+		var rate = (dtP * pBeat) - 10;
+
+		$('#tree').transition({
+			x: -calculateLength()
+		}, rate, "linear", function() {
+			$('#tree').transition({
+				x: 0
+			}, 0);
+			if (!stop) startMetronome();
+		});
 	}
 
 	/*

@@ -239,7 +239,9 @@ body {
  * Metronome
  */
 #metronome div.content #scene {
+	position: relative;
 	margin-left: 20px;
+	overflow: hidden;
 }
 #metronome div.content #scene #giraffe {
 	position: absolute;
@@ -247,7 +249,7 @@ body {
 }
 #metronome div.content #scene #tree {
 	position: absolute;
-	right: 32px;
+	right: -117px;
 	opacity: 0.8;
 }
 #metronome div.content #scene #landscape {
