@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Polyrhythm Woooo</title>
+		<title>DJ Raffe</title>
 
 		<link href="/packages/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -22,9 +22,9 @@
 			<div id="left">
 				<section id="steps">
 					<ul id="step-list">
-						<li><h2>1</h2></li>
-						<li><h2>2</h2></li>
-						<li><h2>3</h2></li>
+						<li><h2>Right</h2></li>
+						<li><h2>Left</h2></li>
+						<li><h2>Both</h2></li>
 					</ul>
 				</section>
 
@@ -34,7 +34,7 @@
 						<div id="beat-options">
 							<div class="opts">
 								<h4>Primary beat</h4>
-								<ul>
+								<ul id="pBeatOpt">
 									<li><button type="button">1</button></li>
 									<li><button type="button">2</button></li>
 									<li><button type="button">3</button></li>
@@ -43,7 +43,7 @@
 							</div>
 							<div class="opts">
 								<h4>Secondary beat</h4>
-								<ul>
+								<ul id="sBeatOpt">
 									<li><button type="button">1</button></li>
 									<li><button type="button">2</button></li>
 									<li><button type="button">3</button></li>
@@ -53,12 +53,12 @@
 						</div>
 						<div id="tempo-opt">
 							<h4>Tempo (bpm)</h4>
-							<input type="text" value="120">
+							<input type="text">
 						</div>
 						<div id="go">
 							<i id="stepback"class="fa fa-step-backward"></i>
 							<i id="play" class="fa fa-play"></i>
-							<i id="pause" class="fa fa-pause"></i>
+							<i id="stop" class="fa fa-stop"></i>
 						</div>
 					</div>
 				</section>
@@ -69,120 +69,7 @@
 				<section id="rhythms">
 					<div class="content">
 						<h2 id="hand"></h2>
-						<div id="note-stream">
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note primary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-							<div class="note secondary"></div>
-						</div>
+						<div id="note-stream"></div>
 					</div>
 				</section>
 
@@ -192,7 +79,7 @@
 						<div id="scene">
 							<img id="landscape" src="public/images/landscape.png"/>
 							<img id="tree" src="public/images/tree.png"/>
-							<img id="giraffe" src="public/images/giraffe.jpg"/>
+							<img id="giraffe" src="public/images/giraffe.png"/>
 						</div>
 					</div>
 				</section>

@@ -1,233 +1,282 @@
 var loadHeight = $(window).height(); //Ignore scrollbars
-
 $(document).ready(function() {
 
+	/*
+	 * Initializations
+	 */
+	var step  = "Right";
+	var steps = {"Right": 1, "Left": 2, "Both": 3};
+	var typeMap = {"Right": "primary", "Left": "secondary"};
+	var type = typeMap[step];
+	var pBeat = 3;
+	var sBeat = 2;
+	var tempo = 120;
+	var t = 3000;
+	var dt = 1000 * (60 / tempo);
+	var dtP = dt * pBeat / pBeat;
+	var dtS = dt * pBeat / sBeat;
+	var dtX = {"primary": dtP, "secondary": dtS};
+	var shoot;
+	var shootP;
+	var shootS;
+
+	$('#step-list li:nth-child('+steps[step]+')').addClass('active');
+	$('#pBeatOpt li:nth-child('+pBeat+') button').addClass('active');
+	$('#sBeatOpt li:nth-child('+sBeat+') button').addClass('active');
+	$('#tempo-opt input').val(tempo);
+
+	setHeights(loadHeight);
+	setStep(step);
 
 
 	/*
-	 * Setting sizes/resizing
+	 * Functions
 	 */
+	/* Set,resize window & element size */
 	function setHeights(windowHeight) {
 		var navHeight = $('#navbar').height()+1;//bottom border
 		var displayHeight = windowHeight-navHeight;
 		var leftHeight = displayHeight;
 		var rightHeight = displayHeight;
+
 		//Left, right heights
 		$('#left').height(displayHeight);
 		$('#right').height(displayHeight);
+
 		//Step circle heights, line height
 		var stepWidth = $('#steps #step-list li').width();
 		$('#steps #step-list li').height(stepWidth);
-		$('#steps #step-list li h2').css('line-height', (stepWidth*(8/11))+'px');
+		$('#steps #step-list li h2').css('line-height', (stepWidth*(10/13))+'px');
+
 		//Controls height
 		var controlsHeight = 250;
 		$('#controls').height(controlsHeight);
-		$('#steps').height(displayHeight-controlsHeight);
+		$('#steps').height(displayHeight-controlsHeight-1); //top border
+
 		//Right section heights
 		var rhythmPercent = 0.66;
 		var rhythmHeight = Math.floor(displayHeight*rhythmPercent);
 		var metronomeHeight = displayHeight-rhythmHeight-1;//bottom border
 		$('#rhythms').height(rhythmHeight);
 		$('#metronome').height(metronomeHeight);
+
 		//Metronome (widths)
 		var sceneWidth = $('#metronome div.content #scene').width();
 		$('#metronome div.content #scene #tree').width(sceneWidth/10);
 		$('#metronome div.content #scene #landscape').width(sceneWidth);
-
 	}
-	setHeights(loadHeight); // On load
-	$(window).resize(function() {
-		var resizeHeight = $(window).height();
-		setHeights(resizeHeight);
-	}); // On resize
+	/* Set hand feedback */
+	function setStep(hand) {
+		//if shooting, stop
+		stopShooting();
 
-
-
-	/*
-	 * Step clicking
-	 */
-	$('#steps #step-list > li:nth-child(1)').addClass('active');
-	$('#rhythms #hand').html("Left hand");
-	$('#steps #step-list > li').click(function() {
-		if(!$(this).hasClass('active')) {
-			$('#steps #step-list > li.active').removeClass('active');
-			$(this).addClass('active');
-			// Change hand text
-			var step = $(this).children('h2').html();
-			var hand;
-			if(step == 1) {
-				hand = "Left hand";
-			}
-			else if(step == 2) {
-				hand = "Right hand";
-			}
-			else if(step == 3) {
-				hand = "Both hands";
-			}
-			$('#rhythms #hand').html(hand);
-		}
-	});
-
-
-
-	/*
-	 * Beat option clicking
-	 */
-	var $pBeatOptActive = $('#beat-options div.opts:first-child li:nth-child(3) button');
-	var $sBeatOptActive = $('#beat-options div.opts:last-child li:nth-child(2) button');
-	var $pOptFeedback = $('#opts-feedback h2:last-child');
-	var $sOptFeedback = $('#opts-feedback h2:first-child');
-	$pBeatOptActive.addClass('active');
-	$sBeatOptActive.addClass('active');
-	function setBeatOptionsFeedback() {
-		var pBeatOpt = $('#beat-options div.opts:first-child li button.active').html();
-		var sBeatOpt = $('#beat-options div.opts:last-child li button.active').html();
-		$pOptFeedback.html(pBeatOpt);
-		$sOptFeedback.html(sBeatOpt);
+		var left = hand;
+		var right = "hand";
+		var text;
+		//plural hand for both
+		if(hand == "Both") right = right+'s';
+		//put text together
+		text = left+' '+right;
+		//update text in rhythm section
+		$('#hand').html(text);
+		//change global step, print
+		step = hand;
+		type = typeMap[step];
+		console.log('New step: ' + step);
 	}
-	setBeatOptionsFeedback();
-	// On click
-	$('#beat-options div.opts li button').click(function() {
-		if(!$(this).hasClass('active')) {
-			$(this).parent().parent().find('.active').removeClass('active');
-			$(this).addClass('active');
+	/* Set primary,secondary beat */
+	function setBeat(parent, beat) {
+		//change global beat variable
+		if(parent == "pBeatOpt") { pBeat = beat; }
+		else if(parent == "sBeatOpt") { sBeat = beat; }
+		setRates();
+		//print change
+		var whichBeat = parent.replace('Opt','');
+		console.log('New '+whichBeat+': '+beat);
+	}
+	/* Set tempo */
+	function setTempo(newTempo) {
+		if(newTempo!=tempo) {
+			stopShooting();
+			tempo = newTempo;
+			dt = 1000 * (60 / tempo);
+			setRates();
+			console.log('New tempo: '+tempo);
 		}
-		setBeatOptionsFeedback();
-	});
+	}
+	/* Set primary, secondary rates */
+	function setRates() {
+		dtP = dt * pBeat / pBeat;
+		dtS = dt * pBeat / sBeat;
+		dtX['primary'] = dtP;
+		dtX['secondary'] = dtS;
+	}
+	/* Add note element to note stream */
+	function addNote(typeX) {
+		/*
+		Structure:
+		<div class="type note">
+		  	<div class="note-x">
+		  		<div class="note-stem"></div>
+		  		<div class="note-x-l">
+		  			<div class="note-x-r"></div>
+	  			</div>
+  			</div>
+		</div>';
+		*/
+		var note = '<div class="'+typeX+' note"><div class="note-x"><div class="note-stem"></div><div class="note-x-l"><div class="note-x-r"></div></div></div></div>';
+		//add note to end of note stream
+		$('#note-stream').append(note);
+		console.log('Note added');
+		//return the note
+		var $justAdded = $('#note-stream div.note:last-child');
+		return $justAdded
+	}
+	/* Calculate length of note stream */
+	function calculateLength() {
+		var length = $(window).width()-$('#steps').width()-57;
+		return length;
+	}
+	/* Calculate individual shoot rates */
+	function calculateShootRate(typeX) {
+		var rate;
+		if(typeX=="primary") rate = dt / pBeat * pBeat;
+		else if(typeX=="secondary") rate = dt / pBeat * sBeat;
+	}
+	/* Shoot first notes of stream */
+	function shootFirstNotes() {
+		var $note1;
+		var $note2;
+		var $notes;
 
+		//new notes
+		$note1 = addNote('primary');
+		$note2 = addNote('secondary');
+		$notes = $note1.add($note2);
 
-
-	/*
-	 * Backstep/play/pause icon display/functionality
-	 */
-	$('#pause').hide();
-	var audio = new Audio('public/audio/2Chainz.mp3');
-	$('#go i').click(function() {
-		if($(this).attr('id') == "stepback") {
-			audio.currentTime = 0;
-			audio.pause();
-			$('#stepback').fadeOut(100).fadeIn(100);
-			$('#pause').hide();
-			$('#play').show();
-		}
-		else if($(this).attr('id') == 'play') {
-			//audio.play();
-			$('#play').fadeOut(100);
-			$('#pause').delay(200).fadeIn(100);	
-		}
-		else if($(this).attr('id') == 'pause') {
-			audio.pause();
-			$('#pause').fadeOut(100);
-			$('#play').delay(200).fadeIn(100);
-		}
-	});
-
-
-	/*
-	 * Note adding into document
-	 */
-	$('#note-stream div.note').html('<div class="note-stem"></div><div class="note-x"><div class="note-x-l"><div class="note-x-r"></div></div></div>');
-
-
-	/*
-	 * Note stream animation
-	 */
-	$('#play').click(function() {
-		var step = $('#steps #step-list li.active h2').html();
-		var notes;
-		var numHands;
-		var beats;
-		var tpn;
-		var shootRate = 500;
-		var i=0;
-		var j=0;
-		var pBeats = $('.opts:first-child ul li button.active').html();
-		var sBeats = $('.opts:last-child ul li button.active').html();
-		var pTpn = 3000;
-		var sTpn = pTpn * sBeats / pBeats;
-		console.log("step: " + step);
-		console.log("pBeats: " + pBeats);
-		console.log("sBeats: " + sBeats);
-		console.log("pTpn: " + pTpn);
-		console.log("sTpn: " + sTpn)
-		treeMove();
-
-		if(step==1) {
-			notes = $('#note-stream').children('.primary');
-			oneHand = 1;
-			beats = $('.opts:first-child ul li.active button').html();
-			tpn = pTpn;
-		}
-		else if(step==2) {
-			notes = $('#note-stream').children('.secondary');
-			oneHand = 1;
-			beats = $('.opts:last-child ul li.active button').html();
-			tpn = sTpn;
-		}
-		else if(step==3) {
-			notes = $('#note-stream').children();
-			oneHand = 0;
-		}
-		console.log("oneHand: " + oneHand);
-		console.log("tpn: " + tpn);
-
-		if(oneHand) {
-			var noteStreamInterval = setInterval(function() {
-				$(notes[i]).show();
-				$(notes[i]).transition({
-					x: -($(window).width()-$('#steps').width()-60)
-				}, tpn+3000, "linear", function() {
-					//$(this).hide();
-				});
-				i++;
-				if(i == notes.length) {
-					window.clearInterval(noteStreamInterval);
-					$(notes).delay(tpn).transition({x:0}, 0);
-					$('#pause').delay(tpn).fadeOut(100);
-					$('#play').delay(tpn+200).fadeIn(100);
-				}
-			}, shootRate);
-		}
-
-		else if(!oneHand) {
-			var pStreamInterval = setInterval(function() {
-				if($(notes[i]).hasClass('primary')) {
-					$(notes[i]).show();
-					$(notes[i]).transition({
-						x: -($(window).width()-$('#steps').width()-80)
-					}, pTpn, "linear", function() {
-						$(this).hide();
-					});
-					i++;
-				}
-			}, shootRate);
-			var sStreamInterval = setInterval(function() {
-				if($(notes[i]).hasClass('secondary')) {
-					$(notes[i]).show();
-					$(notes[i]).transition({
-						x: -($(window).width()-$('#steps').width()-80)
-					}, sTpn, "linear", function() {
-						$(this).hide();
-					});
-					i++;
-				}
-			}, shootRate);
-		}
-
-	}); 
-
-
-	/*
-	 * Metronome
-	 */	
-	function treeMove() {
-		$('#giraffe').attr('src', 'public/images/giraffe.gif');
-		$('#tree').transition({
-			x: -($(window).width()-$('#steps').width()-160)
-		}, 3000, "linear", function() {
-			$('#tree').transition({x:0}, 0);
-			treeMove();
+		//shoot em
+		$notes.transition({
+			x:-calculateLength()
+		}, t, "linear", function() {
+			setTimeout(function() {
+				$notes.remove();
+			}, 100);
 		});
 	}
+	/* Shoot note across note-stream */
+	function shootNote(typeX) {
+		var $note;
+
+		//new note
+		$note = addNote(typeX);
+
+		//shoot it
+		$note.transition({
+			x: -calculateLength()
+		}, t, "linear", function() {
+			setTimeout(function() {
+				$note.remove();
+			}, 100);
+		});
+	}
+	/* Start shooting notes down stream */
+	function startShooting() {
+		var both = (step == "Both");
+
+		//either right or left
+		if(!both) {
+			shootNote(type);
+			shoot = setInterval(function() {
+				shootNote(type);
+			}, dtX[type]);
+		}
+
+		//both
+		else if(both) {
+			var rateP = dtX['primary'];
+			var rateS = dtX['secondary']
+
+			//shoot first notes together
+			shootFirstNotes();
+
+			//primary shooter
+			shootP = setInterval(function() {
+				shootNote('primary');
+			}, rateP);
+			//secondary shooter
+			shootS = setInterval(function() {
+				shootNote('secondary');
+			}, rateS);
+		}
+	}
+	/* Stop all shooting */
+	function stopShooting() {
+		//if shooting, stop
+		if(shoot || shootP || shootS) {
+			console.log("Stopping...");
+			$('#stop').fadeOut(50);
+			$('#play').delay(50).fadeIn(50);
+			clearInterval(shoot);
+			clearInterval(shootP);
+			clearInterval(shootS);
+			$('.note').hide();
+		}
+	}
+
+	/*
+	 * Events
+	 */
+	/* Resize window & elements */
+	$(window).resize(function() {
+		console.log("Resizing");
+		setHeights($(window).height());
+	});
+	/* Step change */
+	$('#step-list li').click(function() {
+		//this isn't active
+		if(!$(this).hasClass('active')) {
+			//remove active from current
+			$('#step-list li.active').removeClass('active');
+			//add active to this
+			$(this).addClass('active');
+			//change hand text
+			var hand = $(this).children('h2').html();
+			setStep(hand);
+		}
+	});
+	/* Beat change */
+	$('div.opts li button').click(function() {
+		//this isn't active
+		if(!$(this).hasClass('active')) {
+			//remove active from current
+			$(this).parent().parent().find('.active').removeClass('active');
+			//add active to this
+			$(this).addClass('active');
+			var parent = $(this).parent().parent().attr('id');
+			var beat = $(this).html();
+			setBeat(parent, beat);
+		}
+	});
+	/* Tempo change */
+	$('#tempo-opt input').change(function() {
+		var val = $('#tempo-opt input').val();
+		setTempo(val);
+	});
+	/* Play pressed */
+	$('#play').click(function() {
+		console.log("Playing...");
+
+		//hide play, show stop
+		$(this).fadeOut(50);
+		$('#stop').delay(50).fadeIn(50);
+
+		//shoot note woooo
+		startShooting();
+	});
+	/* Stop note stream */
+	$('#stop').click(function() {
+		//stop
+		stopShooting();
+	});
 
 });

@@ -11,7 +11,6 @@ body {
 	width: 7px;
 	height: 42px;
 	border-radius: 3px;
-	background-color: #66E587;
 	-webkit-transform: rotate(45deg);
 	z-index: 1;
 }
@@ -19,19 +18,22 @@ body {
 	width: 7px;
 	height: 42px;
 	border-radius: 3px;
-	background-color: #66E587;
 	-webkit-transform: rotate(90deg);
 	z-index: 2;
 }
 .note .note-stem {
-	margin-bottom: -10px;
-	margin-left: 13px;
 	height: 55px;
 	width: 7px;
 	border-radius: 3px;
-	background-color: #66E587;
 }
-
+.primary .note-x-l, .primary .note-x-r, .primary .note-stem {
+	background-color: #3184FF;;
+}
+.secondary .note-x-l, .secondary .note-x-r, .secondary .note-stem {
+	background-color: #66E587;;
+}
+.primary .note-stem { margin-bottom: -10px; margin-left: 13px;}
+.secondary .note-stem { margin-bottom: -87px; margin-left: -14px; }
 
 /*
  * Navbar
@@ -114,6 +116,7 @@ body {
 	margin-right: auto;
 	margin-left: auto;
 	color: #eee;
+	font-size: 20px;
 }
 
 
@@ -122,6 +125,7 @@ body {
  */
 #controls {
 	background-color: #222;
+	border-top: 1px solid #444;
 }
 #controls h4 {
 	margin: 40px 0 5px 0;
@@ -204,24 +208,31 @@ body {
 #controls #go #stepback {
 	margin-right: 12px;
 }
+#controls #go #stop {
+	display: none;
+}
 
 
 /*
  * Rhythms
  */
 #rhythms div.content #note-stream {
+	position: relative;
 	margin-top: 30px;
 	margin-left: 20px;
-	height: 250px;
+	height: 280px;
+	border: 2px solid #191919;
+	text-align: right;
 	overflow: hidden;
-	border-left: 2px solid #191919;
 }
 #rhythms div.content #note-stream .note {
 	position: absolute;
-	display: none;
-	right: 25px;
-	margin-top: 40px;
+	display: inline-block;
+	right: 30px;
 }
+#rhythms div.content #note-stream .note.primary { margin-top: 70px; }
+#rhythms div.content #note-stream .note.primary .note-x { margin-right: -10px; }
+#rhythms div.content #note-stream .note.secondary { margin-top: 146px; }
 
 
 /*
@@ -236,7 +247,7 @@ body {
 }
 #metronome div.content #scene #tree {
 	position: absolute;
-	right: 20px;
+	right: 32px;
 	opacity: 0.8;
 }
 #metronome div.content #scene #landscape {
