@@ -235,6 +235,7 @@ $(document).ready(function() {
 		}
 	}
 	function startMetronome() {
+		$('#giraffe').attr('src', 'public/images/giraffe.gif');
 		var rate = (dtP * pBeat) - 10;
 
 		$('#tree').transition({
@@ -244,6 +245,7 @@ $(document).ready(function() {
 				x: 0
 			}, 0);
 			if (!stop) startMetronome();
+			else $('#giraffe').attr('src', 'public/images/giraffe.png');
 		});
 	}
 
