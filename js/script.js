@@ -137,7 +137,7 @@ $(document).ready(function() {
 	}
 	/* Calculate length of note stream */
 	function calculateLength() {
-		var length = $(window).width()-$('#steps').width()-57;
+		var length = $(window).width()-$('#steps').width()-75;
 		return length;
 	}
 	/* Calculate individual shoot rates */
@@ -178,6 +178,10 @@ $(document).ready(function() {
 			x: -calculateLength()
 		}, t, "linear", function() {
 			setTimeout(function() {
+				$('#note-stream').css('border-left-color', '#ccc');
+				setTimeout(function() {
+					$('#note-stream').delay(2000).css('border-left-color', '#191919');
+				}, 100);
 				$note.remove();
 			}, 100);
 		});
