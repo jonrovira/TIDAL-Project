@@ -1,4 +1,7 @@
-<h1>Summary:</h1>
+<h1>DJ Raffe</h1>
+
+
+<h2>Summary</h2>
 
 <p>DJ Raffe is a tool for developing a child's skill with polyrhythm, a rhythm that makes use of two or more different rhythms simultaneously. DJ Raffe does this by providing the ability to overlay measures with two separate beat meters and play the resulting polyrhythm on two drums, one for each hand. 
 
